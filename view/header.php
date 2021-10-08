@@ -6,7 +6,7 @@
     </head>
     <body>
         <div class="topnav">
-            
+            <h2>Movie Database</h2>
             
             
         </div>

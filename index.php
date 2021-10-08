@@ -8,7 +8,7 @@ $action = filter_input(INPUT_POST, 'action');
 if ($action === NULL) {
     $action = filter_input(INPUT_GET, 'action');
     if ($action === NULL) {
-        $action = 'main';
+        $action = 'user_register';
     }
 }
 
@@ -37,4 +37,163 @@ case 'user_register':
         include('Registration\user_register.php');
         break;
         die;
+ case 'confirm_user':
+        $firstName = filter_input(INPUT_POST, "firstName");
+        $lastName = filter_input(INPUT_POST, "lastName");
+        $email = filter_input(INPUT_POST, "email", FILTER_VALIDATE_EMAIL);
+        $userName = filter_input(INPUT_POST, "username");
+        $password = filter_input(INPUT_POST, "password");
+        $errorFName = '';
+        $errorLName = '';
+        $errorEmail = '';
+        $errorUser = '';
+        $errorPassword = '';
+        
+        if($firstName !== '')
+        {
+            $first_match = preg_match('/^[A-Z]/i', $firstName);
+            
+            if ($first_match === false){
+                echo 'error';
+            }else if ($first_match === 0){
+                $errorFName = $errorFName . 'First Name must start with a letter';
+            }
+            
+        }else{
+            $errorFName = $errorFName . 'Please enter your first name';
+        }
+        
+
+        //Validate Last Name input
+        if($lastName !== '')
+        {
+            $last_match = preg_match('/^[A-Z]/i', $lastName);
+            
+            if ($last_match === false){
+                echo 'error';
+            }else if ($last_match === 0){
+                $errorLName = $errorLName . 'Last Name must start with a letter';
+            }
+        }else{
+            $errorLName = 'Please enter your last name';
+        }
+        
+
+        //Validate Email input
+        //Also checks to make sure that the input does not already exist within the database
+        if($email !== '' && $email == TRUE)
+        {
+            if(UserDB::doesEmailExist($email))
+            {
+            $errorEmail = $errorEmail . 'An account with this email already exists';
+            $email = '';
+            }
+        }
+        else
+        {
+            $errorEmail = $errorEmail.'Please enter a properly formatted email';
+            $email = '';
+        }
+
+        //Validate User Name input
+        //Also checks to make sure that the input does not already exist within the database
+        if($userName !== '')
+           {
+            
+            $user_match = preg_match('/^[A-Z]/i', $userName);
+            $user_l_match = preg_match('/.{4,30}/', $userName);
+                    
+            if($user_l_match === false) {
+                echo 'error';
+            } else if($user_l_match === 0){
+                $errorUser = $errorUser . 'UserName must between 4 and 30 characters long';
+            }
+            
+            if($user_match === false) {
+                echo 'error';
+            } else if ($user_match === 0){
+                $errorUser = $errorUser . 'UserName must start with a letter';
+            }
+            
+                    
+            if(UserDB::doesUserNameExist($userName))
+            {
+            $errorUser = $errorUser . 'An account with this user name already exists';
+            }
+        }
+        else
+        {
+            $errorUser = $errorUser . 'Please enter a username';
+        }
+
+        //Validate Password
+        if($password !== '')
+        {
+            $length_match = preg_match('/.{10,30}/', $password);
+            $case_match = preg_match('/[A-Z]/', $password);
+            $lowerCase_match = preg_match('/[a-z]/', $password);
+            $num_match = preg_match('/[0-9]/', $password);
+            $character_match = preg_match('/[!@#$%^&*()_+\[\]{};\\|,.<>\/?]/', $password);
+            
+                if($length_match === false)
+                {
+                    echo 'error';
+                } 
+                else if ($length_match === 0)
+                    {
+                    $errorPassword = $errorPassword . 'Password must be at least 10 characters long ';
+                    }
+                    
+                if($case_match === FALSE)
+                    {
+                   echo 'error';
+                    }
+                 else if ($case_match === 0)
+                     {
+                 $errorPassword = $errorPassword . 'Password must contain a capital letter ';
+                     } 
+                 
+                if ($lowerCase_match === FALSE)
+                        {
+                        echo 'error';
+                        } 
+                else if ($lowerCase_match === 0)
+                        {
+                        $errorPassword = $errorPassword . 'Password must contain a lowercase letter ';
+                        }
+                
+                if ($num_match === FALSE)
+                    {
+                        echo 'error';
+                    } 
+                else if ($num_match === 0)
+                        {
+                        $errorPassword = $errorPassword . 'Password must contain at least one number ';
+                        }
+                
+                if ($character_match === FALSE)
+                    {
+                        echo 'error';
+                    } 
+                else if ($character_match === 0)
+                    {
+                        $errorPassword = $errorPassword . 'Password must contain at least one special character ';
+                    } 
+                }
+  
+        
+        
+
+        //If error messages exist, stop and return the user to the index page
+        if($errorFName != '' || $errorEmail != '' || $errorUser != '' || $errorFName != '' || $errorPassword != '')
+        {
+            include('Registration\user_register.php');
+            exit();
+        }
+        
+        UserDB::addUser($userName, $email, $lastName, $firstName, $password);
+        
+        include('Registration\confirmation.php');
+        die;
+        break;
 }
