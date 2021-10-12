@@ -8,7 +8,7 @@ $action = filter_input(INPUT_POST, 'action');
 if ($action === NULL) {
     $action = filter_input(INPUT_GET, 'action');
     if ($action === NULL) {
-        $action = 'user_register';
+        $action = 'main';
     }
 }
 
@@ -194,6 +194,65 @@ case 'user_register':
         UserDB::addUser($userName, $email, $lastName, $firstName, $password);
         
         include('Registration\confirmation.php');
+        die;
+        break;
+    case 'login_user':
+        $changeNotice = '';
+        include('user\login.php');
+        die;
+        break;
+    
+    case 'attemptLogin':
+        $username = filter_input(INPUT_POST, "username");
+        $password = filter_input(INPUT_POST, "password");
+        if (!isset($username)) {
+        $username = '';
+            }
+            if (!isset($password)) {
+                $password = '';
+            }
+            // If no User Name was entered on the login form
+            if($username == '')
+            {
+                $errorUsername = 'Please enter your User Name';
+            } else {
+                $errorUsername = '';
+            }
+            // If no Password was entered on the login form
+            if($password == '')
+            {
+                $errorPassword = 'Please enter your Password';
+            } else {
+                $errorPassword = '';
+            }
+            // Check to make sure that the User exists in the DB
+                        if(!userDB::doesUserNameExist($username)) 
+                           {
+               $errorUsername = 'That User Name does not exist in the database.';
+               }
+            
+            
+            // If the error messages are not empty
+            if($errorUsername !== '' || $errorPassword !== '')
+            {
+                include('UserPage\login.php');
+                exit();
+            } else { // Otherwise test the entered password again the password in the database
+                $passwordActual = UserDB::loginVerifyPassword($username);
+                if (!empty($passwordActual)) {
+                    if (password_verify($password, $passwordActual[0])) { // If the password input from the form matches the password stored for that username
+                        $_SESSION['verifiedUser'] = $username;
+                        $_SESSION['userData'] = UserDB::retrieveUserData($_SESSION['verifiedUser']);
+                        include('UserPage\loginSuccess.php');
+                    } else {
+                        $errorPassword = 'Incorrect Password';
+                        include('UserPage\login.php');
+                    }
+                } else {
+                        $errorPassword = 'Incorrect Password';
+                        include('UserPage\login.php');
+                }
+            }
         die;
         break;
 }
