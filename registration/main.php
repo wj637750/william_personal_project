@@ -22,5 +22,11 @@
             <li><a href="?action=login_user">login</a></li>
         </ul>
         
+        <?php if (isset($_SESSION['verifiedUser'])) 
+        {?>
+            Welcome, <?php echo $_SESSION['verifiedUser']; ?>!
+            <a href="?action=logout">logout</a>
+        <?php } ?>
+        
     </body>
 </html>

@@ -250,16 +250,23 @@ case 'user_register':
                     if (password_verify($password, $passwordActual[0])) { // If the password input from the form matches the password stored for that username
                         $_SESSION['verifiedUser'] = $username;
                         $_SESSION['userData'] = UserDB::retrieveUserData($_SESSION['verifiedUser']);
-                        include('UserPage\loginSuccess.php');
+                        include('user\loginSuccess.php');
                     } else {
                         $errorPassword = 'Incorrect Password';
-                        include('UserPage\login.php');
+                        include('user\login.php');
                     }
                 } else {
                         $errorPassword = 'Incorrect Password';
-                        include('UserPage\login.php');
+                        include('user\login.php');
                 }
             }
-        die;
-        break;
+    die;
+    break;
+        
+    case 'logout':
+        session_destroy();
+        $action = 'user_register';
+        header('Location: index.php');
+    die;
+   break;
 }
