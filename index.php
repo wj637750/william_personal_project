@@ -205,12 +205,17 @@ case 'user_register':
     case 'attemptLogin':
         $username = filter_input(INPUT_POST, "username");
         $password = filter_input(INPUT_POST, "password");
-        if (!isset($username)) {
-        $username = '';
+        $errorUsername = '';
+        $errorPassword = '';
+        
+            if (!isset($username)) {
+            $username = '';
             }
+            
             if (!isset($password)) {
                 $password = '';
             }
+            
             // If no User Name was entered on the login form
             if($username == '')
             {
@@ -218,6 +223,7 @@ case 'user_register':
             } else {
                 $errorUsername = '';
             }
+            
             // If no Password was entered on the login form
             if($password == '')
             {
@@ -225,17 +231,18 @@ case 'user_register':
             } else {
                 $errorPassword = '';
             }
+            
             // Check to make sure that the User exists in the DB
-                        if(!userDB::doesUserNameExist($username)) 
-                           {
-               $errorUsername = 'That User Name does not exist in the database.';
-               }
+            if(!userDB::doesUserNameExist($username)) 
+            {
+            $errorUsername = 'That User Name does not exist in the database.';
+            }
             
             
             // If the error messages are not empty
             if($errorUsername !== '' || $errorPassword !== '')
             {
-                include('UserPage\login.php');
+                include('User\login.php');
                 exit();
             } else { // Otherwise test the entered password again the password in the database
                 $passwordActual = UserDB::loginVerifyPassword($username);
