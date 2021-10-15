@@ -20,6 +20,7 @@
         <ul>
             <li><a href="?action=user_register">Register</a></li>
             <li><a href="?action=login_user">login</a></li>
+            <li><a href="?action=add_movie">Add a movie to the database</a></li>
         </ul>
         
         <?php if (isset($_SESSION['verifiedUser'])) 

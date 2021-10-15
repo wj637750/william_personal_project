@@ -12,7 +12,7 @@
             
             Welcome, <?php echo $_SESSION['verifiedUser']; ?>!
             <br><br>
-            Return ti <a href="?action=main">main</a>
+            Return to <a href="?action=main">main</a>
             
         </div>
         

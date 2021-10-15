@@ -2,6 +2,8 @@
 require ('model\database.php');
 require ('model\userDB.php');
 require ('model\user.php');
+require ('model\movie.php');
+require ('model\movieDB.php');
 session_start();
 
 $action = filter_input(INPUT_POST, 'action');
@@ -268,5 +270,80 @@ case 'user_register':
         $action = 'user_register';
         header('Location: index.php');
     die;
-   break;
+    
+    //Movie Cases
+    
+    case 'add_movie':
+        if (!isset($movieName)) {
+            $movieName = '';
+        }
+        if (!isset($movieGenre)) {
+            $movieGenre = '';
+        }
+        if (!isset($movieRating)) {
+            $movieRating = '';
+        }
+        include('movies\addMovie.php');
+    break;
+    die;
+    
+    case 'confirm_movie':
+        $movieName = filter_input(INPUT_POST, "movieName");
+        $movieGenre = filter_input(INPUT_POST, "movieGenre");
+        $movieRating = filter_input(INPUT_POST, "movieRating");
+        $errorMovieName = '';
+        $errorGenre = '';
+        $errorRating = '';
+        
+        if (!isset($movieName)) {
+            $movieName = '';
+            }
+            
+        if (!isset($movieRating)) {
+            $movieRating = '';
+        }
+            
+        // If no movie title was entered on the login form
+        if($movieName !== '')
+        {
+            $name_match = preg_match('/^[A-Z]/i', $movieName);
+            
+            if ($name_match === false){
+                echo 'error';
+            }else if ($name_match === 0){
+                $errorMovieName = $errorMovieName . 'Movie Title must start with a letter';
+            }
+        } else {
+            $errorMovieName = $errorMovieName . 'Please enter a title';
+        }
+            
+        
+        if($movieRating !== '')
+         {
+             $rating_match = preg_match('/^([1-9]|10)$/i', $movieRating);
+             
+             if ($rating_match === false){
+                 echo 'error';
+             }else if ($rating_match === 0){
+                 $errorRating = $errorRating . 'Movie Rating must be a valid number between 1 and 10';
+             }
+             
+         }else{
+             $errorRating = $errorRating . 'Please enter your a movie Rating';
+         }
+         
+         //error check
+         if($errorMovieName != '' || $errorGenre != '' || $errorRating != "")
+         {
+             include('movies\addMovie.php');
+             exit();
+         }
+         
+         movieDB::addMovie($movieName, $movieGenre, $movieRating);
+         include('movies\confirmation.php');
+        
+    break;
+    die;
+    
+
 }
