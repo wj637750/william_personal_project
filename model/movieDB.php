@@ -7,7 +7,7 @@ class movieDB {
         $db = Database::getDB();
 
         $queryUsers = 'SELECT *
-                       FROM user';
+                       FROM movies';
         
         $statement = $db->prepare($queryUsers);
         $statement->execute();
@@ -16,7 +16,7 @@ class movieDB {
         
         $movies = array();
         foreach ($rows as $row) {
-            $m = new User($row['movieID'],
+            $m = new Movie($row['movieID'],
                           $row['movieName'],
                           $row['movieGenre'],
                           $row['movieRating'],

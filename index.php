@@ -344,6 +344,11 @@ case 'user_register':
         
     break;
     die;
+    case 'display_movies';
+        $movies = movieDB::getMovies();
+        include('movies\listmovies.php');
+    break;
+    die;
     
 
 }
