@@ -4,6 +4,8 @@ require ('model\userDB.php');
 require ('model\user.php');
 require ('model\movie.php');
 require ('model\movieDB.php');
+require ('model\comment.php');
+require ('model\commentDB.php');
 session_start();
 
 $action = filter_input(INPUT_POST, 'action');
@@ -354,12 +356,24 @@ case 'user_register':
         $_SESSION['otherMovieID'] = $movieID;
         $movie = movieDB::retrieveMovieDataByID($movieID);
         //comments here
-        
+        $comments = CommentDB::getCommentsByMovieId($_SESSION['otherMovieID']);
         //get movie image here
         
         include ('movies\moviepage.php');
     break;
     die;
-    
+    case 'leaveComment':
+        $movie = movieDB::retrieveMovieDataByID($_SESSION['otherMovieID']);
+        $comment = filter_input(INPUT_POST, "comment");
+        
+        if ($comment != '') {
+            $sendingID = UserDB::retrieveUserID($_SESSION['verifiedUser']);
+            commentDB::addComment($sendingID, $_SESSION['otherMovieID'], $comment);
+        }
+        $comments = CommentDB::getCommentsByMovieId($_SESSION['otherMovieID']);;
+        
+        include ('movies\moviepage.php');
+    break;
+    die;
 
 }
