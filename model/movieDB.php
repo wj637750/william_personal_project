@@ -42,6 +42,26 @@ class movieDB {
         $statement->closeCursor();
     }
     
+    public static function retrieveMovieDataByID($movieID)
+    {
+        $db = Database::getDB();
+        
+        $query = "SELECT * "
+                . "FROM movies "
+                . "WHERE movieID = :movieID";
+        $statement = $db->prepare($query);
+        $statement->bindValue(':movieID', $movieID);
+        $statement->execute();
+        $row = $statement->fetch();
+        $statement->closeCursor();
+        
+        $movie = new Movie($row['movieID'],
+                           $row['movieName'],
+                           $row['movieGenre'],
+                           $row['movieRating'],
+                           '');
+        return $movie;
+    }
     
 }
 

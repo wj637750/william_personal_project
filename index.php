@@ -349,6 +349,17 @@ case 'user_register':
         include('movies\listmovies.php');
     break;
     die;
+    case 'movie_page';
+        $movieID = filter_input(INPUT_POST, 'movieID');
+        $_SESSION['otherMovieID'] = $movieID;
+        $movie = movieDB::retrieveMovieDataByID($movieID);
+        //comments here
+        
+        //get movie image here
+        
+        include ('movies\moviepage.php');
+    break;
+    die;
     
 
 }
