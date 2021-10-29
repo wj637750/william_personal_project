@@ -305,7 +305,7 @@ case 'user_register':
             $movieRating = '';
         }
             
-        // If no movie title was entered on the login form
+        // If no movie title was entered 
         if($movieName !== '')
         {
             $name_match = preg_match('/^[A-Z]/i', $movieName);

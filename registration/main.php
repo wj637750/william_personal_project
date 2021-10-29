@@ -25,7 +25,9 @@
              <?php if (isset($_SESSION['verifiedUser'])) {?>
                 <li><a href="?action=add_movie">Add a movie to the database</a></li>
             <?php } ?>
-                <li><a href="?action=display_movies">view database</a></li>
+                <li><a href="?action=display_movies">view movie database</a></li>
+                <li><a href="actors?action=add_actor">Add an Actor to the database</a></li>
+                <li><a href="actors?action=list_actors">View actor database</a></li>
         </ul>
         
         <?php if (isset($_SESSION['verifiedUser'])) 
