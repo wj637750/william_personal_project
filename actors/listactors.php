@@ -8,13 +8,11 @@
         <table>
             <tr>
                 <th>ActorName</th>
-                <th>Bio</th>
             </tr>
             
             <?php foreach ($actors as $actor) : ?>
                 <tr>
                     <td><?php echo htmlspecialchars($actor->getActorFullName()); ?></td>
-                    <td><?php echo htmlspecialchars($actor->getActorBio()); ?></td>
                     <!--button to view actor page -->
                     <td>
                         <form action="index.php" method="post">

@@ -96,6 +96,27 @@ switch ($action) {
         $actors = actorDB::getActors();
         include('listactors.php');
     break;
+    case 'actor_page':
+        $actorID = filter_input(INPUT_POST, 'actorID');
+        $_SESSION['actorID'] = $actorID;
+        $actor = actorDB::retrieveActorDataByID($actorID);
+        
+        include ('actorpage.php');
+    break;
+    case 'link_movie';
+        $movies = movieDB::getMovies();
+        include('link_movie.php');
+    break;
+    case 'link_actor';
+        $actorID = $_SESSION['actorID'];
+        $movieID = filter_input(INPUT_POST, 'movieID');
+        
+        actorDB::addActorLink($actorID, $movieID);
+        
+        $actor = actorDB::retrieveActorDataByID($actorID);
+        include ('actorpage.php');
+    break;
+        
         
 }
 
