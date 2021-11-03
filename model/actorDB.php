@@ -63,16 +63,17 @@ class actorDB {
         return $actor;
     }
     
-    public static function addActorLink($actorID, $movieID)
+    public static function addActorLink($actorID, $movieID, $actorRole)
     {
         $db = Database::getDB();
 
         $query = "insert into actorlink"
-            . "(actorID, movieID)"
-            . "values (:actorID, :movieID)";
+            . "(actorID, movieID, role)"
+            . "values (:actorID, :movieID, :role)";
         $statement = $db->prepare($query);
         $statement->bindValue(':actorID', $actorID);
         $statement->bindValue(':movieID', $movieID);
+        $statement->bindValue(':role', $actorRole);
         $statement->execute();
         $statement->closeCursor();
     }

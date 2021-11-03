@@ -11,7 +11,35 @@
             <tr>
                 <td><?php echo htmlspecialchars($actor->getActorBio()); ?></td>
             </tr>
-        </table>
+        </table><br><br>
+        
+        <h3>Movies involving this actor!</h3>
+        <table>
+            <tr>
+                <th>Movie</th>
+            </tr>
+            
+            <?php foreach ($movies as $movie) : ?>
+            <tr>
+                <td><?php echo htmlspecialchars($movie->getMovieName()); ?></td>
+                    <?php $roles = movieDB::getRoleByActor($_SESSION['actorID'], $movie->getMovieID()); 
+                    foreach ($roles as $role) : ?>
+                        <td><?php echo htmlspecialchars($role->getRole()); ?></td>
+                        <?php var_dump($role) ?>
+                    <?php endforeach; ?>
+                <td>
+                    <form action="..\index.php" method="post">
+                        <input type="hidden" name="action" value="movie_page">
+                        <input type="hidden" name="movieID" value="<?php echo htmlspecialchars($movie->getMovieID()); ?>">
+                        
+                        <input type="submit" value="more details">
+                    </form> 
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table><br><br>
+        
+        
         
         <form action="index.php" method="post" id="link_movie">
             <input type="hidden" name="action" value="link_movie" />

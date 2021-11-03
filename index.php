@@ -6,6 +6,7 @@ require ('model\movie.php');
 require ('model\movieDB.php');
 require ('model\comment.php');
 require ('model\commentDB.php');
+require ('model\role.php');
 session_start();
 
 $action = filter_input(INPUT_POST, 'action');

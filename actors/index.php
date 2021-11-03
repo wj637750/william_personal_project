@@ -8,6 +8,7 @@ require ('..\model\comment.php');
 require ('..\model\commentDB.php');
 require ('..\model\actor.php');
 require ('..\model\actorDB.php');
+require ('..\model\role.php');
 session_start();
 
 $action = filter_input(INPUT_POST, 'action');
@@ -100,6 +101,7 @@ switch ($action) {
         $actorID = filter_input(INPUT_POST, 'actorID');
         $_SESSION['actorID'] = $actorID;
         $actor = actorDB::retrieveActorDataByID($actorID);
+        $movies = movieDB::getMoviesByActor($_SESSION['actorID']);
         
         include ('actorpage.php');
     break;
@@ -108,12 +110,14 @@ switch ($action) {
         include('link_movie.php');
     break;
     case 'link_actor';
+        $actorRole = filter_input(INPUT_POST, 'actorRole');;
         $actorID = $_SESSION['actorID'];
         $movieID = filter_input(INPUT_POST, 'movieID');
         
-        actorDB::addActorLink($actorID, $movieID);
+        actorDB::addActorLink($actorID, $movieID, $actorRole);
         
         $actor = actorDB::retrieveActorDataByID($actorID);
+        $movies = movieDB::getMoviesByActor($_SESSION['actorID']);
         include ('actorpage.php');
     break;
         

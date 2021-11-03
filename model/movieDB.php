@@ -63,5 +63,67 @@ class movieDB {
         return $movie;
     }
     
+    
+    public static function getMoviesByActor($actorID)
+    {
+        $db = Database::getDB();
+        
+        $query =  "SELECT movies.*, actorlink.* "
+                . "FROM movies "
+                . "JOIN actorlink "
+                . "ON actorlink.movieID = movies.movieID "
+                . "WHERE actorlink.actorID = :actorID";
+        
+        $statement = $db->prepare($query);
+        $statement->bindValue(':actorID', $actorID);
+        $statement->execute();
+        $rows = $statement->fetchAll();
+        $statement->closeCursor();
+        
+        $movies = array();
+        foreach ($rows as $row) {
+            $m = new Movie($row['movieID'],
+                           $row['movieName'],
+                           $row['movieGenre'],
+                           $row['movieRating'],
+                           '');
+            $movies[] = $m;
+        }
+        
+        
+//        $roles = array();
+//        foreach ($rows as $row) {
+//            $r = new Role($row['role'],
+//                           '');
+//                }
+//        
+//        array_push($movies, $roles);
+        return $movies;
+    }
+    
+    public static function getRoleByActor($actorID, $movieID)
+    {
+        $db = Database::getDB();
+        
+        $query = 'SELECT role '
+                . 'FROM actorlink '
+                . 'WHERE actorID = :actorID AND movieID = :movieID';
+        
+        $statement = $db->prepare($query);
+        $statement->bindValue(':actorID', $actorID);
+        $statement->bindValue(':movieID', $movieID);
+        $statement->execute();
+        $rows = $statement->fetchAll();
+        $statement->closeCursor();
+        
+        $roles = array();
+        foreach ($rows as $row) {
+            $r = new Role($row['role'],
+                           '');
+                }
+                
+        return $roles;
+    }
+    
 }
 

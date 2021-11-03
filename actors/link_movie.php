@@ -8,6 +8,7 @@
         <table>
             <tr>
                 <th>Title</th>
+                <th>Role<th>
             </tr>
             
             <?php foreach ($movies as $movie) : ?>
@@ -17,6 +18,9 @@
                     <td>
                         <form action="index.php" method="post" id="link_actor">
                             <input type="hidden" name="action" value="link_actor">
+                            
+                            <input type="text" name="actorRole">
+                                <br>
                             <input type="hidden" name="movieID" value="<?php echo htmlspecialchars($movie->getMovieID()); ?>">
                             <input type="submit" value="Select this movie">
                         </form> 
