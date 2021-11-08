@@ -109,9 +109,9 @@ switch ($action) {
 
         $imageActor = imageDB::getImagesWithActorID($_SESSION['actorID']);
         if (empty($imageActor)) {
-                $actualImage[0] = "../images/default.png";
+                $actualImage[0] = "../image/default.png";
             } else if ($imageActor === null) {
-                $actualImage[0] = '../images/default.png';
+                $actualImage[0] = '../image/default.png';
             } else {
             $actualImage = $imageActor[0];
             }
@@ -134,6 +134,9 @@ switch ($action) {
         include ('actorpage.php');
     break;
     case 'upload_image':
+        $actorID = $_SESSION['actorID'];
+        $actor = actorDB::retrieveActorDataByID($actorID);
+        $movies = movieDB::getMoviesByActor($_SESSION['actorID']);
         if(isset($_FILES['image'])){
             $setDefualt = true;
             
@@ -159,19 +162,19 @@ switch ($action) {
             }
             
             if(empty($errors)=== true){
-                move_uploaded_file($file_tmp,"Image/".$fileNameNew);
+                move_uploaded_file($file_tmp,"../image/".$fileNameNew);
                 
-                $actorData = actorDB::retrieveActorDataByID($_SESSION['actorID']);
+                $actorData = actorDB::retrieveUserData($_SESSION['actorID']);
                 //var_dump($userData);
                 
-                imageDB::addImage("Image/".$fileNameNew, $userData['userID'] );
-                $imageActor = imageDB::getImagesWithUserID($userData['userID']);
+                imageDB::addImage("../image/".$fileNameNew, $actorData['actorID'] );
+                $imageActor = imageDB::getImagesWithActorID($actorData['actorID']);
                 $actualImage = $imageActor[0];
                 //echo "Success";
               //echo "<img src='Image/default.png'>";
                 $changeNotice = 'Image Uploaded';
-              echo '<img src =Image/'.$file_name;
-                include 'UserPage\userPage.php';
+              //echo '<img src =../image/'.$file_name;
+                include ('actorpage.php');
             } else{
                 //var_dump($errors);
                 $changeNotice = 'Image Upload Failed';
@@ -182,14 +185,14 @@ switch ($action) {
                 
                 $imageActor = imageDB::getImagesWithUserID($userData['userID']);
                     if (empty($imageActor)) {
-                        $actualImage[0] = "image/default.png";
+                        $actualImage[0] = "../image/default.png";
                     } else if ($imageActor === null) {
-                        $actualImage[0] = 'Image/default.png';
+                        $actualImage[0] = '../image/default.png';
                     } else {
                     $actualImage = $imageActor[0];
                     }
                 
-                include 'UserPage\userPage.php';
+                include ('actorpage.php');
             }
         }
         

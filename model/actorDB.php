@@ -63,6 +63,23 @@ class actorDB {
         return $actor;
     }
     
+    public static function retrieveUserData($actorID)
+    {
+        $db = Database::getDB();
+        
+        $query = "SELECT * "
+                . "FROM actors "
+                . "WHERE actorID = :actorID";
+        $statement = $db->prepare($query);
+        $statement->bindValue(':actorID', $actorID);
+        $statement->execute();
+        $actorData = $statement->fetch();
+        $statement->closeCursor();
+        
+        return $actorData;
+    }
+    
+    
     public static function addActorLink($actorID, $movieID, $actorRole)
     {
         $db = Database::getDB();
