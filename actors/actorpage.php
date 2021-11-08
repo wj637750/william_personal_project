@@ -3,6 +3,10 @@
     <?php// include 'view\header.php'   ?>
     <body>
         <h1> <?php echo htmlspecialchars($actor->getActorFullName());; ?></h1>
+        
+        <img src='<?php echo $actualImage[0] ?>' width='100' height = '150'>
+        <br><br>
+        
         <table>
             <tr>
                 <th>Actor bio</th>
