@@ -7,6 +7,9 @@ require ('model\movieDB.php');
 require ('model\comment.php');
 require ('model\commentDB.php');
 require ('model\role.php');
+require ('model\movieImage.php');
+require ('model\movieImagesDB.php');
+
 session_start();
 
 $action = filter_input(INPUT_POST, 'action');
@@ -346,12 +349,12 @@ case 'user_register':
          include('movies\confirmation.php');
         
     break;
-    die;
+    
     case 'display_movies';
         $movies = movieDB::getMovies();
         include('movies\listmovies.php');
     break;
-    die;
+    
     case 'movie_page';
         $movieID = filter_input(INPUT_POST, 'movieID');
         $_SESSION['otherMovieID'] = $movieID;
@@ -359,6 +362,15 @@ case 'user_register':
         //comments here
         $comments = CommentDB::getCommentsByMovieId($_SESSION['otherMovieID']);
         //get movie image here
+        
+        $imageMovie = movieImageDB::getImagesWithMovieID($_SESSION['otherMovieID']);
+        if (empty($imageMovie)) {
+                $actualImage[0] = "image/default.png";
+            } else if ($imageMovie === null) {
+                $actualImage[0] = 'image/default.png';
+            } else {
+            $actualImage = $imageMovie[0];
+            }
         
         include ('movies\moviepage.php');
     break;
@@ -376,5 +388,69 @@ case 'user_register':
         include ('movies\moviepage.php');
     break;
     die;
+    case 'upload_movie_image':
+        $movieID = $_SESSION['otherMovieID'];
+        $movie = movieDB::retrieveMovieDataByID($movieID);
+        $movies = movieDB::getMoviesByActor($_SESSION['actorID']);
+        if(isset($_FILES['image'])){
+            $setDefualt = true;
+            
+            $errorMoviePageImage = '';
+            
+            $errors= array();
+            $file_name = $_FILES['image']['name'];
+            $file_size = $_FILES['image']['size'];
+            $file_tmp = $_FILES['image']['tmp_name'];
+            $file_type = $_FILES['image']['type'];
+            $temp = $_FILES['image']['name'];
+            $temp = explode('.', $temp);
+            $temp = end($temp);
+            $file_ext = strtolower($temp);
+            
+            $extensions= array("jpeg", "jpg", "png", "gif"); 
+            
+             $fileNameNew = uniqid('',true).".".$file_ext;
+            
+            if(in_array($file_ext,$extensions) === false){
+                
+                $errors[]="file extension not in whitelist: " . join(',',$extensions);
+            }
+            
+            if(empty($errors)=== true){
+                move_uploaded_file($file_tmp,"image/".$fileNameNew);
+                
+                $movieData = movieDB::retrieveMovieData($_SESSION['otherMovieID']);
+                //var_dump($userData);
+                
+                movieImageDB::addImage("/image/".$fileNameNew, $movieData['movieID'] );
+                $imageMovie = movieImageDB::getImagesWithMovieID($movieData['movieID']);
+                $actualImage = $imageMovie[0];
+                //echo "Success";
+              //echo "<img src='Image/default.png'>";
+                $changeNotice = 'Image Uploaded';
+              //echo '<img src =../image/'.$file_name;
+                include ('movies\moviepage.php');
+            } else{
+                //var_dump($errors);
+                $changeNotice = 'Image Upload Failed';
+                
+                $errorUserPageImage = $errorUserPageImage . 'Please select an image';
+                
+                $movieData = movieDB::retrieveMovieData($_SESSION['otherMovieID']);
+                
+                $imageMovie = movieImageDB::getImagesWithMovieID($userData['userID']);
+                    if (empty($imageMovie)) {
+                        $actualImage[0] = "image/default.png";
+                    } else if ($imageMovie === null) {
+                        $actualImage[0] = 'image/default.png';
+                    } else {
+                    $actualImage = $imageMovie[0];
+                    }
+                
+                include ('movies\moviepage.php');
+            }
+        }
+        
+    break;
 
 }

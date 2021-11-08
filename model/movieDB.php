@@ -63,6 +63,23 @@ class movieDB {
         return $movie;
     }
     
+    public static function retrieveMovieData($movieID)
+    {
+        $db = Database::getDB();
+        
+        $query = "SELECT * "
+                . "FROM movies "
+                . "WHERE movieID = :movieID";
+        $statement = $db->prepare($query);
+        $statement->bindValue(':movieID', $movieID);
+        $statement->execute();
+        $movieData = $statement->fetch();
+        $statement->closeCursor();
+        
+        return $movieData;
+    }
+    
+    
     
     public static function getMoviesByActor($actorID)
     {
