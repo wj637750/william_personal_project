@@ -4,7 +4,11 @@
     <body>
         <h1>Movie page for <?php echo htmlspecialchars($movie->getMovieName()); ?></h1>
     
-        
+        <?php if (!empty($errorMoviePageImage)) {
+                    ?> <p id="error"> <?php echo htmlspecialchars($errorMoviePageImage);
+                } ?> 
+         <br>
+                
         <img src='<?php echo $actualImage[0] ?>' width='100' height = '150'>
         <br><br>
         

@@ -385,10 +385,22 @@ case 'user_register':
         }
         $comments = CommentDB::getCommentsByMovieId($_SESSION['otherMovieID']);;
         
+        $imageMovie = movieImageDB::getImagesWithMovieID($_SESSION['otherMovieID']);
+        if (empty($imageMovie)) {
+                $actualImage[0] = "image/default.png";
+            } else if ($imageMovie === null) {
+                $actualImage[0] = 'image/default.png';
+            } else {
+            $actualImage = $imageMovie[0];
+            }
+        
         include ('movies\moviepage.php');
     break;
     die;
     case 'upload_movie_image':
+        $movieID = $_SESSION['otherMovieID'];
+        $comments = CommentDB::getCommentsByMovieId($_SESSION['otherMovieID']);
+        
         $movieID = $_SESSION['otherMovieID'];
         $movie = movieDB::retrieveMovieDataByID($movieID);
         $movies = movieDB::getMoviesByActor($_SESSION['actorID']);
@@ -422,7 +434,7 @@ case 'user_register':
                 $movieData = movieDB::retrieveMovieData($_SESSION['otherMovieID']);
                 //var_dump($userData);
                 
-                movieImageDB::addImage("/image/".$fileNameNew, $movieData['movieID'] );
+                movieImageDB::addImage("image/".$fileNameNew, $movieData['movieID'] );
                 $imageMovie = movieImageDB::getImagesWithMovieID($movieData['movieID']);
                 $actualImage = $imageMovie[0];
                 //echo "Success";
@@ -434,11 +446,11 @@ case 'user_register':
                 //var_dump($errors);
                 $changeNotice = 'Image Upload Failed';
                 
-                $errorUserPageImage = $errorUserPageImage . 'Please select an image';
+                $errorMoviePageImage = $errorMoviePageImage . 'Please select an image';
                 
                 $movieData = movieDB::retrieveMovieData($_SESSION['otherMovieID']);
                 
-                $imageMovie = movieImageDB::getImagesWithMovieID($userData['userID']);
+                $imageMovie = movieImageDB::getImagesWithMovieID($movieData['movieID']);
                     if (empty($imageMovie)) {
                         $actualImage[0] = "image/default.png";
                     } else if ($imageMovie === null) {

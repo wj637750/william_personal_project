@@ -4,6 +4,10 @@
     <body>
         <h1> <?php echo htmlspecialchars($actor->getActorFullName());; ?></h1>
         
+        <?php if (!empty($errorActorPageImage)) {
+                    ?> <p id="error"> <?php echo htmlspecialchars($errorActorPageImage);
+                } ?> 
+         <br>
         <img src='<?php echo $actualImage[0] ?>' width='100' height = '150'>
         <br><br>
         

@@ -178,12 +178,12 @@ switch ($action) {
             } else{
                 //var_dump($errors);
                 $changeNotice = 'Image Upload Failed';
-                
-                $errorUserPageImage = $errorUserPageImage . 'Please select an image';
+                $errorActorPageImage = '';
+                $errorActorPageImage = $errorActorPageImage . 'Please select an image';
                 
                 $actorData = actorDB::retrieveActorDataByID($_SESSION['actorID']);
                 
-                $imageActor = imageDB::getImagesWithUserID($userData['userID']);
+                $imageActor = imageDB::getImagesWithActorID($_SESSION['actorID']);
                     if (empty($imageActor)) {
                         $actualImage[0] = "../image/default.png";
                     } else if ($imageActor === null) {
