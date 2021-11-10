@@ -99,8 +99,13 @@ switch ($action) {
         $actors = actorDB::getActors();
         include('listactors.php');
     break;
+    case 'search_actors':
+        $search = filter_input(INPUT_GET, 'search');
+        $actors = actorDB::getActorsBySearch($search);
+        include('listactors.php');
+    break;
     case 'actor_page':
-        $actorID = filter_input(INPUT_POST, 'actorID');
+        $actorID = filter_input(INPUT_GET, 'actorID');
         $_SESSION['actorID'] = $actorID;
         $actor = actorDB::retrieveActorDataByID($actorID);
         $movies = movieDB::getMoviesByActor($_SESSION['actorID']);

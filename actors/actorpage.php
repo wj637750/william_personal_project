@@ -42,7 +42,7 @@
                         <?php var_dump($role) ?>
                     <?php endforeach; ?>
                 <td>
-                    <form action="..\index.php" method="post">
+                    <form action="..\index.php" method="get">
                         <input type="hidden" name="action" value="movie_page">
                         <input type="hidden" name="movieID" value="<?php echo htmlspecialchars($movie->getMovieID()); ?>">
                         

@@ -354,9 +354,16 @@ case 'user_register':
         $movies = movieDB::getMovies();
         include('movies\listmovies.php');
     break;
+
+    case 'search_movies':
+        $search = filter_input(INPUT_GET, 'search');
+        $movies = movieDB::getMoviesbySearch($search);
+        include('movies\listmovies.php');
+        
+    break;
     
     case 'movie_page';
-        $movieID = filter_input(INPUT_POST, 'movieID');
+        $movieID = filter_input(INPUT_GET, 'movieID');
         $_SESSION['otherMovieID'] = $movieID;
         $movie = movieDB::retrieveMovieDataByID($movieID);
         //comments here

@@ -3,8 +3,17 @@
     <?php// include 'view\header.php'?>
     <body>
         
-        <h1>Movie Database</h1>
+        <h1><a href="?action=display_movies">Movie Database</a></h1>
         <br>
+        <!-- search bar -->
+        <form action="index.php" method="get">
+            <label>Search Movies</label>
+            <input type="hidden" name="action" value="search_movies">
+            <input type="text" name="search">
+            <input type="submit" value="submit">
+        </form>
+        <br>
+        
         <table>
             <tr>
                 <th>Title</th>
@@ -19,7 +28,7 @@
                     <td><?php echo htmlspecialchars($movie->getMovieRating()); ?></td>
                     <!--button to view movie page -->
                     <td>
-                        <form action="index.php" method="post">
+                        <form action="index.php" method="get">
                             <input type="hidden" name="action" value="movie_page">
                             <input type="hidden" name="movieID" value="<?php echo htmlspecialchars($movie->getMovieID()); ?>">
                             <input type="submit" value="more details">

@@ -27,6 +27,35 @@ class actorDB {
         return $actors;
     }
     
+    public static function getActorsBySearch($search)
+    {
+        $db = Database::getDB();
+
+        $queryUsers = 'SELECT *
+                       FROM actors
+                       WHERE MATCH (actorFirstName) AGAINST (:search IN BOOLEAN MODE)
+                       OR MATCH (actorLastName) AGAINST (:search IN BOOLEAN MODE)';
+        
+        $statement = $db->prepare($queryUsers);
+        $statement->bindValue(':search', $search);
+        $statement->execute();
+        $rows =  $statement->fetchAll();
+        $statement->closeCursor();
+        
+        $actors = array();
+        foreach ($rows as $row) {
+            $a = new Actor($row['actorID'],
+                          $row['actorFirstName'],
+                          $row['actorLastName'],
+                          $row['actorBio'],
+                          '');
+            $actors[] = $a;
+        }
+
+        return $actors;
+    }
+    
+    
     public static function addActor($actorFirstName, $actorLastName, $actorBio)
     {
         $db = Database::getDB();

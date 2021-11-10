@@ -27,6 +27,35 @@ class movieDB {
         return $movies;
     }
     
+    public static function getMoviesbySearch($search)
+    {
+        $db = Database::getDB();
+
+        $queryUsers = '
+                       SELECT *
+                       FROM movies 
+                       WHERE MATCH (movieName) AGAINST (:search IN BOOLEAN MODE)
+                       OR MATCH (movieGenre) AGAINST (:search IN BOOLEAN MODE)';
+        
+        $statement = $db->prepare($queryUsers);
+        $statement->bindValue(':search', $search);
+        $statement->execute();
+        $rows =  $statement->fetchAll();
+        $statement->closeCursor();
+        
+        $movies = array();
+        foreach ($rows as $row) {
+            $m = new Movie($row['movieID'],
+                          $row['movieName'],
+                          $row['movieGenre'],
+                          $row['movieRating'],
+                          '');
+            $movies[] = $m;
+        }
+
+        return $movies;
+    }
+    
     public static function addMovie($movieName, $movieGenre, $movieRating)
     {
         $db = Database::getDB();

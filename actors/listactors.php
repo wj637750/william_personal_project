@@ -3,7 +3,14 @@
     <?php// include 'view\header.php'?>
     <body>
         
-        <h1>Actor Database</h1>
+        <h1><a href="?action=list_actors">Actor Database</a></h1>
+        <br>
+        <form action="index.php" method="get">
+            <label>Search Movies</label>
+            <input type="hidden" name="action" value="search_actors">
+            <input type="text" name="search">
+            <input type="submit" value="submit">
+        </form>
         <br>
         <table>
             <tr>
@@ -15,7 +22,7 @@
                     <td><?php echo htmlspecialchars($actor->getActorFullName()); ?></td>
                     <!--button to view actor page -->
                     <td>
-                        <form action="index.php" method="post">
+                        <form action="index.php" method="get">
                             <input type="hidden" name="action" value="actor_page">
                             <input type="hidden" name="actorID" value="<?php echo htmlspecialchars($actor->getActorID()); ?>">
                             <input type="submit" value="more details">
