@@ -11,12 +11,13 @@
         <img src='<?php echo $actualImage[0] ?>' width='100' height = '150'>
         <br><br>
         
+        <?php if (isset($_SESSION['verifiedUser']) && $acctype[0] === 'Admin') {?>
          <form action="index.php" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="action" value="upload_image"/>
                 <input type="file" name="image" /> <br>
                 <input type="submit" value="Change profile pic"/>
             </form>
-        
+        <?php } ?>
         <table>
             <tr>
                 <th>Actor bio</th>
@@ -54,12 +55,13 @@
         </table><br><br>
         
         
-        
+        <?php if (isset($_SESSION['verifiedUser']) && $acctype[0] === 'Admin') {?>
         <form action="index.php" method="post" id="link_movie">
             <input type="hidden" name="action" value="link_movie" />
             <input type="hidden" name="actorID" value="<?php echo htmlspecialchars($actor->getActorID()); ?>">
             <input type="submit" value="add a movie to this actor.">
         </form>
+        <?php } ?>
         
         
     </body>

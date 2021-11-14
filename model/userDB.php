@@ -22,6 +22,7 @@ class UserDB {
                           $row['lastName'],
                           $row['email'],
                           $row['userName'],
+                          $row['acctype'],
                           '');
             $users[] = $u;
         }
@@ -139,6 +140,7 @@ class UserDB {
                          $row['lastName'],
                          $row['email'],
                          $row['userName'],
+                         $row['acctype'],
                          ''); 
         
         return $user;
@@ -170,6 +172,20 @@ class UserDB {
         $statement->closeCursor();
         
         return $userID[0];
+    }
+    
+    public static function getAccountType($username)
+    {
+        $db = Database::getDB();
+        
+        $query = 'SELECT acctype FROM user WHERE userName = :username';
+        $statement = $db->prepare($query);
+        $statement->bindValue(':username', $username);
+        $statement->execute();
+        $acctype = $statement->fetch();
+        $statement->closeCursor();
+        
+        return $acctype;
     }
     
 }

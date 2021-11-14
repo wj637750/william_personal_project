@@ -2,15 +2,16 @@
 
 class User {
 
-    private $userID, $firstName, $lastName, $email, $userName, $password;
+    private $userID, $firstName, $lastName, $email, $userName, $password, $acctype;
 
-    public function __construct($userID, $firstName, $lastName, $email, $userName, $password) {
+    public function __construct($userID, $firstName, $lastName, $email, $userName, $password, $acctype) {
         $this->userID = $userID;
         $this->firstName = $firstName;
         $this->lastName = $lastName;
         $this->email = $email;
         $this->userName = $userName;
         $this->password = $password;
+        $this->acctype = $acctype;
     }
     
     public function getUserID() {
@@ -36,6 +37,10 @@ class User {
     public function getPassword() {
         return $this->password;
     }
+    
+    public function getAcctype() {
+        return $this->acctype;
+    }
 
     public function setUserID($userID) {
         $this->userID = $userID;
@@ -59,6 +64,10 @@ class User {
 
     public function setPassword($password) {
         $this->password = $password;
+    }
+    
+    public function setAcctype($acctype) {
+        $this->acctype = $acctype;
     }
 
 }

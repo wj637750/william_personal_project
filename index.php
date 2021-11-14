@@ -22,7 +22,9 @@ if ($action === NULL) {
 
 switch ($action) {
     case 'main':
-        
+    if (isset($_SESSION['verifiedUser'])) {
+    $acctype = UserDB::getAccountType($_SESSION['verifiedUser']);
+    }
     include('registration\main.php');
     break;
     die;
@@ -363,6 +365,11 @@ case 'user_register':
     break;
     
     case 'movie_page';
+        
+        if (isset($_SESSION['verifiedUser'])) {
+        $acctype = UserDB::getAccountType($_SESSION['verifiedUser']);
+        }
+        
         $movieID = filter_input(INPUT_GET, 'movieID');
         $_SESSION['otherMovieID'] = $movieID;
         $movie = movieDB::retrieveMovieDataByID($movieID);
@@ -383,6 +390,11 @@ case 'user_register':
     break;
     die;
     case 'leaveComment':
+        
+        if (isset($_SESSION['verifiedUser'])) {
+        $acctype = UserDB::getAccountType($_SESSION['verifiedUser']);
+        }
+        
         $movie = movieDB::retrieveMovieDataByID($_SESSION['otherMovieID']);
         $comment = filter_input(INPUT_POST, "comment");
         
@@ -405,6 +417,11 @@ case 'user_register':
     break;
     die;
     case 'upload_movie_image':
+        
+        if (isset($_SESSION['verifiedUser'])) {
+        $acctype = UserDB::getAccountType($_SESSION['verifiedUser']);
+        }   
+        
         $movieID = $_SESSION['otherMovieID'];
         $comments = CommentDB::getCommentsByMovieId($_SESSION['otherMovieID']);
         

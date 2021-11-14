@@ -12,11 +12,13 @@
         <img src='<?php echo $actualImage[0] ?>' width='100' height = '150'>
         <br><br>
         
+        <?php if (isset($_SESSION['verifiedUser']) && $acctype[0] === 'Admin') {?>
          <form action="index.php" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="action" value="upload_movie_image"/>
                 <input type="file" name="image" /> <br>
                 <input type="submit" value="Change profile pic"/>
             </form>
+        <?php } ?>
         <br>
         <br>
         <h3>Reviews left for this movie</h3>

@@ -105,6 +105,11 @@ switch ($action) {
         include('listactors.php');
     break;
     case 'actor_page':
+        
+        if (isset($_SESSION['verifiedUser'])) {
+        $acctype = UserDB::getAccountType($_SESSION['verifiedUser']);
+        }  
+        
         $actorID = filter_input(INPUT_GET, 'actorID');
         $_SESSION['actorID'] = $actorID;
         $actor = actorDB::retrieveActorDataByID($actorID);
@@ -128,6 +133,11 @@ switch ($action) {
         include('link_movie.php');
     break;
     case 'link_actor':
+        
+        if (isset($_SESSION['verifiedUser'])) {
+        $acctype = UserDB::getAccountType($_SESSION['verifiedUser']);
+        }  
+        
         $actorRole = filter_input(INPUT_POST, 'actorRole');;
         $actorID = $_SESSION['actorID'];
         $movieID = filter_input(INPUT_POST, 'movieID');
@@ -139,6 +149,11 @@ switch ($action) {
         include ('actorpage.php');
     break;
     case 'upload_image':
+        
+        if (isset($_SESSION['verifiedUser'])) {
+        $acctype = UserDB::getAccountType($_SESSION['verifiedUser']);
+        }  
+        
         $actorID = $_SESSION['actorID'];
         $actor = actorDB::retrieveActorDataByID($actorID);
         $movies = movieDB::getMoviesByActor($_SESSION['actorID']);
