@@ -5,7 +5,7 @@
         <link rel="stylesheet" type="text/css" href="main.css">
         <title>User Login</title>
     </head>
-    <?php //include 'view\header.php'?>
+    <?php include 'view\header.php'?>
     <body>
         
             <h1>User Login</h1>

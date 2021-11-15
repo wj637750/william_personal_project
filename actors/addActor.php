@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-    <?php// include 'view\header.php'?>
+    <?php include '..\view\header.php'?>
     <body>
         
         <form action="index.php" method="post" id="confirm_actor">

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+    <?php include 'view\header.php'?>
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" type="text/css" href="main.css">

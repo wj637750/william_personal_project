@@ -3,7 +3,7 @@
         <meta charset="UTF-8">
         <link rel="stylesheet" type="text/css" href="main.css">
     </head>
-    <?php //include 'view\header.php'?>
+    <?php include 'view\header.php'?>
     <body>
          <div class="topnav">
                 <h2>Back Row Group</h2>

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-    <?php// include 'view\header.php'?>
+    <?php include 'view\header.php'?>
     <body>
         
         <h1><a href="?action=display_movies">Movie Database</a></h1>

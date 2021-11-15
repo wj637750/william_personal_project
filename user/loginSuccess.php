@@ -5,7 +5,7 @@
         <link rel="stylesheet" type="text/css" href="main.css">
         <title>Welcome</title>
     </head>
-    <?php //include 'view\header.php'?>
+    <?php include 'view\header.php'?>
     <body>
         <div id="wrapper">
             <h1>Login Successful</h1>

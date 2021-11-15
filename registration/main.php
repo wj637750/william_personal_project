@@ -4,7 +4,7 @@
         <title></title>
         <link rel="stylesheet" type="text/css" href="main.css"
     </head>
-  <?php// include 'view\header.php'?> 
+  <?php include 'view\header.php'?> 
     <body>
         
         <form action="index.php" method="post" id="user_register">

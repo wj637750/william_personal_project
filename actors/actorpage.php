@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-    <?php// include 'view\header.php'   ?>
+    <?php include '..\view\header.php'?>
     <body>
         <h1> <?php echo htmlspecialchars($actor->getActorFullName());; ?></h1>
         
