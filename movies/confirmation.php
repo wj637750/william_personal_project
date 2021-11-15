@@ -8,13 +8,14 @@
     </head>
     <?php //include 'view\header.php'?>
     <body>
-            <h1>movie has been added</h1>
+        <div class='container'>
+            <h1 class='text-orange'>movie has been added</h1>
             
             
             <br><br>
-            Return to <a href="?action=main">main</a>
+            <p class='text-orange'>Return to <a href="?action=main">main</a></p>
             
         
-        
+        </div>
     </body>
 </html>

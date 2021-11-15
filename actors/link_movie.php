@@ -2,7 +2,7 @@
 <html>
     <?php include '..\view\header.php'?>
     <body>
-        
+        <div class='container'>
         <h1>Add movie to actor</h1>
         <br>
         <table>
@@ -32,6 +32,6 @@
         
         
         
-        
+        </div>
     </body>
 </html>

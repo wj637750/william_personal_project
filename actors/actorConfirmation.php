@@ -8,6 +8,7 @@
     </head>
     <?php //include 'view\header.php'?>
     <body>
+        <div class='container'>
             <h1>Actor has been added</h1>
             
             
@@ -15,7 +16,7 @@
             Return to <a href="..\?action=main">main</a>
             
         
-        
+        </div>
     </body>
 </html>
 

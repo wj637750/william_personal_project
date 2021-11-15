@@ -2,10 +2,11 @@
 <html>
     <?php include '..\view\header.php'?>
     <body>
-        <h1> <?php echo htmlspecialchars($actor->getActorFullName());; ?></h1>
+        <div class='container'>
+        <h1 class='text-orange'> <?php echo htmlspecialchars($actor->getActorFullName());; ?></h1>
         
         <?php if (!empty($errorActorPageImage)) {
-                    ?> <p id="error"> <?php echo htmlspecialchars($errorActorPageImage);
+                    ?> <p class='text-orange' id="error"> <?php echo htmlspecialchars($errorActorPageImage);
                 } ?> 
          <br>
         <img src='<?php echo $actualImage[0] ?>' width='100' height = '150'>
@@ -14,29 +15,29 @@
         <?php if (isset($_SESSION['verifiedUser']) && $acctype[0] === 'Admin') {?>
          <form action="index.php" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="action" value="upload_image"/>
-                <input type="file" name="image" /> <br>
+                <input class='text-white' type="file" name="image" /> <br>
                 <input type="submit" value="Change profile pic"/>
             </form>
         <?php } ?>
         <table>
             <tr>
-                <th>Actor bio</th>
+                <th class='text-orange'>Actor bio</th>
             </tr>
             
             <tr>
-                <td><?php echo htmlspecialchars($actor->getActorBio()); ?></td>
+                <td class='text-white'><?php echo htmlspecialchars($actor->getActorBio()); ?></td>
             </tr>
         </table><br><br>
         
-        <h3>Movies involving this actor!</h3>
+        <h3 class='text-orange'>Movies involving this actor!</h3>
         <table>
             <tr>
-                <th>Movie</th>
+                <th class='text-orange'>Movie</th>
             </tr>
             
             <?php foreach ($movies as $movie) : ?>
             <tr>
-                <td><?php echo htmlspecialchars($movie->getMovieName()); ?></td>
+                <td class='text-white'><?php echo htmlspecialchars($movie->getMovieName()); ?></td>
                     <?php $roles = movieDB::getRoleByActor($_SESSION['actorID'], $movie->getMovieID()); 
                     foreach ($roles as $role) : ?>
                         <td><?php echo htmlspecialchars($role->getRole()); ?></td>
@@ -63,7 +64,7 @@
         </form>
         <?php } ?>
         
-        
+        </div>
     </body>
 </html>
         

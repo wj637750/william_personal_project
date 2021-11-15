@@ -2,10 +2,11 @@
 <html>
     <?php include 'view\header.php'?>
     <body>
-        <h1>Movie page for <?php echo htmlspecialchars($movie->getMovieName()); ?></h1>
+        <div class="container">
+        <h1 class="text-orange">Movie page for <?php echo htmlspecialchars($movie->getMovieName()); ?></h1>
     
         <?php if (!empty($errorMoviePageImage)) {
-                    ?> <p id="error"> <?php echo htmlspecialchars($errorMoviePageImage);
+                    ?> <p class='text-orange' id="error"> <?php echo htmlspecialchars($errorMoviePageImage);
                 } ?> 
          <br>
                 
@@ -15,25 +16,25 @@
         <?php if (isset($_SESSION['verifiedUser']) && $acctype[0] === 'Admin') {?>
          <form action="index.php" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="action" value="upload_movie_image"/>
-                <input type="file" name="image" /> <br>
+                <input class="text-white" type="file" name="image" /> <br>
                 <input type="submit" value="Change profile pic"/>
             </form>
         <?php } ?>
         <br>
         <br>
-        <h3>Reviews left for this movie</h3>
+        <h3 class="text-orange">Reviews left for this movie</h3>
         <br>
         <table>
             <tr>
-                <th>Review</th>
-                <th>Left by</th>
-                <th>Date</th>
+                <th class="text-orange">Review</th>
+                <th class="text-orange">Left by</th>
+                <th class="text-orange">Date</th>
             </tr>
             <?php foreach ($comments as $comment) : ?>
                 <tr>
-                    <td><?php echo htmlspecialchars($comment->getComment()); ?></td>
-                    <td><?php echo htmlspecialchars(userDB::retrieveUserName($comment->getSendingId())); ?></td>
-                    <td><?php echo htmlspecialchars($comment->getLeftWhen()); ?></td>
+                    <td class="text-white"><?php echo htmlspecialchars($comment->getComment()); ?></td>
+                    <td class="text-white"><?php echo htmlspecialchars(userDB::retrieveUserName($comment->getSendingId())); ?></td>
+                    <td class="text-white"><?php echo htmlspecialchars($comment->getLeftWhen()); ?></td>
                 </tr>
             <?php endforeach; ?>
         </table>
@@ -48,10 +49,10 @@
             </form>
         <?php } ?>
         <?php if (!isset($_SESSION['verifiedUser'])) {?>
-            <p>Please login to leave a review.</p>
+            <p class="text-orange">Please login to leave a review.</p>
         <?php } ?>
         
-        
+        </div>
     </body>
 </html>
 

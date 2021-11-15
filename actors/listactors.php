@@ -2,11 +2,11 @@
 <html>
     <?php include '..\view\header.php'?>
     <body>
-        
-        <h1><a href="?action=list_actors">Actor Database</a></h1>
+        <div class='container'>
+        <h1><a href="?action=list_actors" class='text-orange'>Actor Database</a></h1>
         <br>
         <form action="index.php" method="get">
-            <label>Search Movies</label>
+            <label class='text-orange'>Search Movies</label>
             <input type="hidden" name="action" value="search_actors">
             <input type="text" name="search">
             <input type="submit" value="submit">
@@ -14,12 +14,12 @@
         <br>
         <table>
             <tr>
-                <th>ActorName</th>
+                <th class='text-orange'>ActorName</th>
             </tr>
             
             <?php foreach ($actors as $actor) : ?>
                 <tr>
-                    <td><?php echo htmlspecialchars($actor->getActorFullName()); ?></td>
+                    <td class='text-white'><?php echo htmlspecialchars($actor->getActorFullName()); ?></td>
                     <!--button to view actor page -->
                     <td>
                         <form action="index.php" method="get">
@@ -35,7 +35,7 @@
         
         
         
-        
+        </div>
     </body>
 </html>
 
