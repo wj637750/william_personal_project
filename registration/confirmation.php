@@ -5,16 +5,14 @@
     </head>
     <?php include 'view\header.php'?>
     <body>
-         <div class="topnav">
-                <h2>Back Row Group</h2>
-        </div>
-        
+    <div class='container'
         <div id="wrapper">
-            <h1>Welcome!!! <?php echo $userName ?></h1>
+            <h1 class='text-orange'>Welcome!!! <?php echo $userName ?></h1>
             <br>
-            Registration was successful.
-            <p>Return to <a href ="index.php">Home</a></p>
+            <p class='text-white'>Registration was successful.</p>
+            <p class='text-white'>Return to <a href ="index.php">Home</a></p>
         </div>
+    </div>
     </body>
          
 </html>

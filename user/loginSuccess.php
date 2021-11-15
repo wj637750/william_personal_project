@@ -7,12 +7,12 @@
     </head>
     <?php include 'view\header.php'?>
     <body>
-        <div id="wrapper">
-            <h1>Login Successful</h1>
+        <div class='container'>
+            <h1 class='text-orange'>Login Successful</h1>
             
-            Welcome, <?php echo $_SESSION['verifiedUser']; ?>!
-            <br><br>
-            Return to <a href="?action=main">main</a>
+            <p class='text-white'>Welcome, <?php echo $_SESSION['verifiedUser']; ?>!</p>
+            <br>
+            <p class='text-white'>Return to <a href="?action=main">main</a></p>
             
         </div>
         

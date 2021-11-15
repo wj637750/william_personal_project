@@ -7,30 +7,30 @@
     </head>
     <?php include 'view\header.php'?>
     <body>
-        
-            <h1>User Login</h1>
+        <div class='container'>
+            <h1 class='text-orange'>User Login</h1>
             <form action="index.php" method="post" id="attemptLogin">
                 <input type="hidden" name="action" value="attemptLogin" />
                 
             <!-- User Name error display -->
             <?php if (!empty($errorUsername)) {
-                ?> <p class="error"> <?php echo htmlspecialchars($errorUsername); 
-            } ?>
+                ?> <p class='text-orange' > <?php echo htmlspecialchars($errorUsername); 
+            } ?></p>
             <br>
             <!-- User Name input field -->
-            <label>User Name</label><br>
+            <label class='text-white'>User Name</label><br>
             <input type="text" name="username"
                 value="">
             <!-- <?php echo htmlspecialchars($username); ?> -->
-            <br>
+            <br><br>
             
             <!-- Password error display -->
             <?php if (!empty($errorPassword)) { 
-                ?> <p class="error"> <?php echo htmlspecialchars($errorPassword);    
-            } ?> 
+                ?> <p class='text-orange'> <?php echo htmlspecialchars($errorPassword); 
+                } ?> </p>
             <br>
             <!-- Password input field -->
-            <label>Password</label><br>
+            <label class='text-white'>Password</label><br>
             <input type="password" name="password"
                 value="">
             <!-- <?php echo htmlspecialchars($password); ?> -->
@@ -42,7 +42,7 @@
             
         </div
         
-        
+    </div>
     </body>
 </html>
 
