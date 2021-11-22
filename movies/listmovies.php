@@ -14,11 +14,13 @@
             </form>
             <br>
 
-            <table>
+            <table class="table">
                 <tr>
+                <thead class="thead-light">
                     <th class='text-white'>Title</th>
-                    <th class='text-white'>Genre</th>
+                    <th class='text-white '>Genre</th>
                     <th class='text-white'>Rating</th>
+                </thead>
                 </tr>
 
                 <?php foreach ($movies as $movie) : ?>

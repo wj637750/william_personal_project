@@ -146,6 +146,16 @@ switch ($action) {
         
         $actor = actorDB::retrieveActorDataByID($actorID);
         $movies = movieDB::getMoviesByActor($_SESSION['actorID']);
+        
+         $imageActor = imageDB::getImagesWithActorID($_SESSION['actorID']);
+        if (empty($imageActor)) {
+                $actualImage[0] = "../image/default.png";
+            } else if ($imageActor === null) {
+                $actualImage[0] = '../image/default.png';
+            } else {
+            $actualImage = $imageActor[0];
+            }
+        
         include ('actorpage.php');
     break;
     case 'upload_image':

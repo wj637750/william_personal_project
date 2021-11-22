@@ -25,6 +25,9 @@ switch ($action) {
     if (isset($_SESSION['verifiedUser'])) {
     $acctype = UserDB::getAccountType($_SESSION['verifiedUser']);
     }
+    
+    
+    $movieImages= movieImageDB::getImages();
     include('registration\main.php');
     break;
     die;
@@ -276,7 +279,7 @@ case 'user_register':
     case 'logout':
         session_destroy();
         $action = 'user_register';
-        header('Location: index.php');
+       include('registration\main.php');
     die;
     
     //Movie Cases
@@ -427,7 +430,7 @@ case 'user_register':
         
         $movieID = $_SESSION['otherMovieID'];
         $movie = movieDB::retrieveMovieDataByID($movieID);
-        $movies = movieDB::getMoviesByActor($_SESSION['actorID']);
+        //$movies = movieDB::getMoviesByActor($_SESSION['actorID']);
         if(isset($_FILES['image'])){
             $setDefualt = true;
             
