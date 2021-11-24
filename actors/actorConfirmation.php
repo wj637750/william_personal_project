@@ -9,14 +9,15 @@
     <?php //include 'view\header.php'?>
     <body>
         <div class='container'>
-            <h1>Actor has been added</h1>
+            <h1 class='text-orange'>Actor has been added</h1>
             
             
             <br><br>
-            Return to <a href="..\?action=main">main</a>
+            <p class='text-white'>Return to <a href="..\?action=main">main</a></p>
             
         
         </div>
     </body>
+    <?php include '..\view\footer.php'; ?>
 </html>
 

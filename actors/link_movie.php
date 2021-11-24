@@ -3,17 +3,17 @@
     <?php include '..\view\header.php'?>
     <body>
         <div class='container'>
-        <h1>Add movie to actor</h1>
+        <h1 class='text-orange'>Add movie to actor</h1>
         <br>
         <table>
             <tr>
-                <th>Title</th>
-                <th>Role<th>
+                <th class='text-white'>Title</th>
+                <th class='text-white'>Role<th>
             </tr>
             
             <?php foreach ($movies as $movie) : ?>
                 <tr>
-                    <td><?php echo htmlspecialchars($movie->getMovieName()); ?></td>
+                    <td class='text-white'><?php echo htmlspecialchars($movie->getMovieName()); ?></td>
                     <!--button to select movie  -->
                     <td>
                         <form action="index.php" method="post" id="link_actor">
@@ -34,4 +34,5 @@
         
         </div>
     </body>
+    <?php include '..\view\footer.php'; ?>
 </html>

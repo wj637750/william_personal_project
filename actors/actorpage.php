@@ -30,27 +30,32 @@
         </table><br><br>
         
         <h3 class='text-orange'>Movies involving this actor!</h3>
-        <table>
+        <table class='table'>
             <tr>
                 <th class='text-orange'>Movie</th>
+                <th class='text-orange'>Role</th>
             </tr>
             
             <?php foreach ($movies as $movie) : ?>
             <tr>
-                <td class='text-white'><?php echo htmlspecialchars($movie->getMovieName()); ?></td>
-                    <?php $roles = movieDB::getRoleByActor($_SESSION['actorID'], $movie->getMovieID()); 
-                    foreach ($roles as $role) : ?>
-                        <td><?php echo htmlspecialchars($role->getRole()); ?></td>
-                        <?php var_dump($role) ?>
-                    <?php endforeach; ?>
-                <td>
+                <td class='text-white'><h4><a class='text-white' href="..\?action=movie_page&movieID=<?php echo htmlspecialchars($movie->getMovieID());?>"><?php echo htmlspecialchars($movie->getMovieName()); ?></td></a></h4>
+                    
+                    
+                    <?php $role = roleDB::retrieveRoleByActorAndMovie($_SESSION['actorID'], $movie->getMovieID()); 
+                          //foreach ($roles as $role) : ?>
+                            <td class='text-white'><?php echo htmlspecialchars($role[0]); ?></td>
+                            
+                    <?php //endforeach; ?>
+                        
+                <!--<td>
                     <form action="..\index.php" method="get">
                         <input type="hidden" name="action" value="movie_page">
                         <input type="hidden" name="movieID" value="<?php echo htmlspecialchars($movie->getMovieID()); ?>">
                         
                         <input type="submit" value="more details">
                     </form> 
-                </td>
+                </td>-->
+                        
             </tr>
             <?php endforeach; ?>
         </table><br><br>
@@ -66,6 +71,7 @@
         
         </div>
     </body>
+    <?php include '..\view\footer.php'; ?>
 </html>
         
         

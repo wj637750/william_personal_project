@@ -263,7 +263,7 @@ case 'user_register':
                     if (password_verify($password, $passwordActual[0])) { // If the password input from the form matches the password stored for that username
                         $_SESSION['verifiedUser'] = $username;
                         $_SESSION['userData'] = UserDB::retrieveUserData($_SESSION['verifiedUser']);
-                        include('user\loginSuccess.php');
+                        include('registration\main.php');
                     } else {
                         $errorPassword = 'Incorrect Password';
                         include('user\login.php');
@@ -279,7 +279,9 @@ case 'user_register':
     case 'logout':
         session_destroy();
         $action = 'user_register';
-       include('registration\main.php');
+        
+        sleep(1);
+       include('user\login.php');
     die;
     
     //Movie Cases

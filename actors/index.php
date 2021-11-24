@@ -9,6 +9,7 @@ require ('..\model\commentDB.php');
 require ('..\model\actor.php');
 require ('..\model\actorDB.php');
 require ('..\model\role.php');
+require ('..\model\roleDB.php');
 require ('..\model\image.php');
 require ('..\model\imageDB.php');
 session_start();
@@ -96,6 +97,8 @@ switch ($action) {
         include('actorConfirmation.php');
     break;
     case 'list_actors':
+        
+        
         $actors = actorDB::getActors();
         include('listactors.php');
     break;

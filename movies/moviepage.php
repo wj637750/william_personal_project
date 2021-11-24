@@ -3,7 +3,7 @@
     <?php include 'view\header.php'?>
     <body>
         <div class="container">
-        <h1 class="text-orange">Movie page for <?php echo htmlspecialchars($movie->getMovieName()); ?></h1>
+        <h1 class="text-orange"><?php echo htmlspecialchars($movie->getMovieName()); ?></h1>
     
         <?php if (!empty($errorMoviePageImage)) {
                     ?> <p class='text-orange' id="error"> <?php echo htmlspecialchars($errorMoviePageImage);
@@ -54,5 +54,6 @@
         
         </div>
     </body>
+    <?php include 'view\footer.php'; ?>
 </html>
 
