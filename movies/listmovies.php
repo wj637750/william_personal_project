@@ -48,5 +48,6 @@
         
         </div>
     </body>
+    <br><br><br>
     <?php include 'view\footer.php'; ?>
 </html>
