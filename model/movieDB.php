@@ -20,6 +20,7 @@ class movieDB {
                           $row['movieName'],
                           $row['movieGenre'],
                           $row['movieRating'],
+                          $row['movieBio'],
                           '');
             $movies[] = $m;
         }
@@ -49,6 +50,7 @@ class movieDB {
                           $row['movieName'],
                           $row['movieGenre'],
                           $row['movieRating'],
+                          $row['movieBio'],
                           '');
             $movies[] = $m;
         }
@@ -56,17 +58,18 @@ class movieDB {
         return $movies;
     }
     
-    public static function addMovie($movieName, $movieGenre, $movieRating)
+    public static function addMovie($movieName, $movieGenre, $movieRating, $movieBio)
     {
         $db = Database::getDB();
     
         $query = "insert into movies"
-            . "(movieName, movieGenre, movieRating)"
-            . "values (:movieName, :movieGenre, :movieRating)";
+            . "(movieName, movieGenre, movieRating, movieBio)"
+            . "values (:movieName, :movieGenre, :movieRating, :movieBio)";
         $statement = $db->prepare($query);
         $statement->bindValue(':movieName', $movieName);
         $statement->bindValue(':movieGenre', $movieGenre);
         $statement->bindValue(':movieRating', $movieRating);
+        $statement->bindValue(':movieBio', $movieBio);
         $statement->execute();
         $statement->closeCursor();
     }
@@ -85,10 +88,11 @@ class movieDB {
         $statement->closeCursor();
         
         $movie = new Movie($row['movieID'],
-                           $row['movieName'],
-                           $row['movieGenre'],
-                           $row['movieRating'],
-                           '');
+                          $row['movieName'],
+                          $row['movieGenre'],
+                          $row['movieRating'],
+                          $row['movieBio'],
+                          '');
         return $movie;
     }
     
@@ -132,6 +136,7 @@ class movieDB {
                            $row['movieName'],
                            $row['movieGenre'],
                            $row['movieRating'],
+                           $row['movieBio'],
                            '');
             $movies[] = $m;
         }

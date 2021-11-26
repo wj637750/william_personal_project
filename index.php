@@ -7,8 +7,11 @@ require ('model\movieDB.php');
 require ('model\comment.php');
 require ('model\commentDB.php');
 require ('model\role.php');
+require ('model\roleDB.php');
 require ('model\movieImage.php');
 require ('model\movieImagesDB.php');
+require ('model\actor.php');
+require ('model\actorDB.php');
 
 session_start();
 
@@ -304,6 +307,7 @@ case 'user_register':
         $movieName = filter_input(INPUT_POST, "movieName");
         $movieGenre = filter_input(INPUT_POST, "movieGenre");
         $movieRating = filter_input(INPUT_POST, "movieRating");
+        $movieBio = filter_input(INPUT_POST, "movieBio");
         $errorMovieName = '';
         $errorGenre = '';
         $errorRating = '';
@@ -352,7 +356,7 @@ case 'user_register':
              exit();
          }
          
-         movieDB::addMovie($movieName, $movieGenre, $movieRating);
+         movieDB::addMovie($movieName, $movieGenre, $movieRating, $movieBio);
          include('movies\confirmation.php');
         
     break;
@@ -380,8 +384,9 @@ case 'user_register':
         $movie = movieDB::retrieveMovieDataByID($movieID);
         //comments here
         $comments = CommentDB::getCommentsByMovieId($_SESSION['otherMovieID']);
+        //get actors in movie
+        $actors = actorDB::getActorsByMovie($_SESSION['otherMovieID']);
         //get movie image here
-        
         $imageMovie = movieImageDB::getImagesWithMovieID($_SESSION['otherMovieID']);
         if (empty($imageMovie)) {
                 $actualImage[0] = "image/default.png";
@@ -408,7 +413,7 @@ case 'user_register':
             commentDB::addComment($sendingID, $_SESSION['otherMovieID'], $comment);
         }
         $comments = CommentDB::getCommentsByMovieId($_SESSION['otherMovieID']);;
-        
+        $actors = actorDB::getActorsByMovie($_SESSION['otherMovieID']);
         $imageMovie = movieImageDB::getImagesWithMovieID($_SESSION['otherMovieID']);
         if (empty($imageMovie)) {
                 $actualImage[0] = "image/default.png";
@@ -429,7 +434,7 @@ case 'user_register':
         
         $movieID = $_SESSION['otherMovieID'];
         $comments = CommentDB::getCommentsByMovieId($_SESSION['otherMovieID']);
-        
+        $actors = actorDB::getActorsByMovie($_SESSION['otherMovieID']);
         $movieID = $_SESSION['otherMovieID'];
         $movie = movieDB::retrieveMovieDataByID($movieID);
         //$movies = movieDB::getMoviesByActor($_SESSION['actorID']);

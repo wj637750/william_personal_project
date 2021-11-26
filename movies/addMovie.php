@@ -41,6 +41,17 @@
             <input type="number" name="movieRating" placeholder='Rating'
                    value="<?php echo htmlspecialchars($movieRating); ?>">
             <br><br>
+            
+            
+            <?php if (!empty($errorBio)) {
+                    ?> <p id="error"> <?php echo htmlspecialchars($errorBio);
+                } ?> <br>
+                
+                <label class='text-orange'>Please write a short biography for this movie</label><br>
+                <textarea name="movieBio"
+                       value="<?php echo htmlspecialchars($movieBio); ?>">
+                </textarea>
+                <br><br>
             <!-- submit -->
             <input type='submit' class='btn btn-primary' value='Enter Movie'>
             

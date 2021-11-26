@@ -55,6 +55,34 @@ class actorDB {
         return $actors;
     }
     
+    public static function getActorsByMovie($movieID)
+    {
+        $db = Database::getDB();
+        
+        $query =  "SELECT actors.*, actorlink.* "
+                . "FROM actors "
+                . "JOIN actorlink "
+                . "ON actorlink.actorID = actors.actorID "
+                . "WHERE actorlink.movieID = :movieID";
+        
+        $statement = $db->prepare($query);
+        $statement->bindValue(':movieID', $movieID);
+        $statement->execute();
+        $rows = $statement->fetchAll();
+        $statement->closeCursor();
+        
+        $actors = array();
+        foreach ($rows as $row) {
+            $a = new Actor($row['actorID'],
+                           $row['actorFirstName'],
+                           $row['actorLastName'],
+                           $row['actorBio'],
+                           '');
+            $actors[] = $a;
+        }
+        return $actors;
+    }
+    
     
     public static function addActor($actorFirstName, $actorLastName, $actorBio)
     {

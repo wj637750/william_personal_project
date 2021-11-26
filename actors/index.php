@@ -136,6 +136,7 @@ switch ($action) {
         include('link_movie.php');
     break;
     case 'link_actor':
+        $errorRole = '';
         
         if (isset($_SESSION['verifiedUser'])) {
         $acctype = UserDB::getAccountType($_SESSION['verifiedUser']);
@@ -145,22 +146,42 @@ switch ($action) {
         $actorID = $_SESSION['actorID'];
         $movieID = filter_input(INPUT_POST, 'movieID');
         
+        if($actorRole !=='') 
+        {
+            $role_match = preg_match('/^[A-Z]/i', $actorRole);
+        if ($role_match === false){
+                echo 'error';
+            }else if ($role_match === 0){
+                $errorRole = $errorRole . 'Role must start with a letter';
+            }
+        } else {
+            $errorRole = $errorRole . 'Please enter a role';
+        }
+        
+        if($errorRole != '') 
+        {
+            $movies = movieDB::getMovies();
+            include('link_movie.php');
+            exit();
+        }
+        
         actorDB::addActorLink($actorID, $movieID, $actorRole);
-        
-        $actor = actorDB::retrieveActorDataByID($actorID);
-        $movies = movieDB::getMoviesByActor($_SESSION['actorID']);
-        
-         $imageActor = imageDB::getImagesWithActorID($_SESSION['actorID']);
-        if (empty($imageActor)) {
+
+            $actor = actorDB::retrieveActorDataByID($actorID);
+            $movies = movieDB::getMoviesByActor($_SESSION['actorID']);
+
+            $imageActor = imageDB::getImagesWithActorID($_SESSION['actorID']);
+            if (empty($imageActor)) {
                 $actualImage[0] = "../image/default.png";
             } else if ($imageActor === null) {
                 $actualImage[0] = '../image/default.png';
             } else {
-            $actualImage = $imageActor[0];
+                $actualImage = $imageActor[0];
             }
-        
+
         include ('actorpage.php');
-    break;
+        
+        break;
     case 'upload_image':
         
         if (isset($_SESSION['verifiedUser'])) {
